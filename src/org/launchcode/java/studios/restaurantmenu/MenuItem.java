@@ -10,6 +10,7 @@ public class MenuItem {
     private Category category;
     private boolean itemStatus;
 
+    // constructor
     protected MenuItem(String aName, double aPrice, String aDescription, Category aCategory, boolean aItemStatus) {
         this.name = aName;
         this.price = aPrice;
@@ -18,16 +19,17 @@ public class MenuItem {
         this.itemStatus = aItemStatus;
     }
 
+    // getters
     protected String getName() { return name; }
     protected double getPrice() { return price; }
     protected String getDescription() { return description; }
     protected Category getCategory() { return category; }
     protected boolean getItemStatus() { return itemStatus; }
 
+    // setters
     protected void updatePrice(double newPrice) {
         this.price = newPrice;
     }
-
     protected void updateStatus(boolean newItemStatus) {
         this.itemStatus = newItemStatus;
     }
