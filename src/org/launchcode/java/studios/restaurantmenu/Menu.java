@@ -22,9 +22,19 @@ public class Menu {
     }
 
     // add menu item
-    public void addMenuItem(MenuItem item) {
-        this.menuItems.add(item);
-        this.lastUpdated = new Date();
+    public void addMenuItem(MenuItem newItem) {
+        boolean dup = false;
+        for (MenuItem item : this.menuItems) {
+            if (item.equals(newItem)) {
+                dup = true;
+            }
+        }
+        if (dup) {
+            System.out.println("\nERROR: menu item already in menu!\n");
+        } else {
+            this.menuItems.add(newItem);
+            this.lastUpdated = new Date();
+        }
     }
 
     // remove menu item
@@ -33,19 +43,12 @@ public class Menu {
         if (index != -1) {
             this.menuItems.remove(index);
         }
-        // int id = 0
-        // for (MenuItem i : this.menuItems) {
-        //     id++;
-        //     if i.equals(item) {
-        //         this.menuItems.remove(i);
-        //     }
-        // }
+        this.lastUpdated = new Date();
     }
 
     // print out the entire menu
     public void printMenu() {
         System.out.println("==== MENU (Updated " + lastUpdated + ") ====");
-
         for (Category c : Category.values()) {
             System.out.println("\n=== " + c.getCategory() + " ===\n");
             for (MenuItem item : this.menuItems) {

@@ -25,15 +25,19 @@ public class MenuItem {
         this.isNew = aIsNew;
     }
 
+    // name getter
+    protected String getName() { return name; }
+
     // category getter
     protected Category getCategory() { return category; }
+
+    // check if menu item is new or not
+    protected boolean isNew() { return isNew; }
 
     // custom string output for debugging
     public String toString() {
         return name + " " + df.format(price) + " " + description + " " + category.getCategory() + " " + isNew;
     }
-
-    // check if menu item is new or not?
 
     // print out a single menu item
     protected void printFormatted() {
@@ -46,8 +50,20 @@ public class MenuItem {
     }
 
     // are two menu items equal?
-    public boolean equals() {
-        // TO DO: insert object equality code here
-        return true;
+    public boolean equals(Object toBeCompared) {
+        if (toBeCompared == this) {
+            return true;
+        }
+
+        if (toBeCompared == null) {
+            return false;
+        }
+
+        if (toBeCompared.getClass() != getClass()) {
+            return false;
+        }
+
+        MenuItem theMenuItem = (MenuItem) toBeCompared;
+        return theMenuItem.getName().toLowerCase() == getName().toLowerCase();
     }
 }
