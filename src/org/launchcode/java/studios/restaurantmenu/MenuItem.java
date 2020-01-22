@@ -1,6 +1,6 @@
 package org.launchcode.java.studios.restaurantmenu;
 
-import org.launchcode.java.studios.restaurantmenu.Category;
+import java.text.DecimalFormat;
 
 public class MenuItem {
 
@@ -8,49 +8,46 @@ public class MenuItem {
     private double price;
     private String description;
     private Category category;
-    private boolean itemStatus;
+    private boolean isNew;
+
+    DecimalFormat df = new DecimalFormat("$#.00");
 
     // good shout from studio member: save date when item is added
     // and check for it in method
     // how else are you going to know how old the item is?
 
     // constructor
-    protected MenuItem(String aName, double aPrice, String aDescription, Category aCategory, boolean aItemStatus) {
+    public MenuItem(String aName, double aPrice, String aDescription, Category aCategory, boolean aIsNew) {
         this.name = aName;
         this.price = aPrice;
         this.description = aDescription;
         this.category = aCategory;
-        this.itemStatus = aItemStatus;
+        this.isNew = aIsNew;
     }
 
-    // getters
-    protected String getName() { return name; }
-    protected double getPrice() { return price; }
-    protected String getDescription() { return description; }
+    // category getter
     protected Category getCategory() { return category; }
-    protected boolean getItemStatus() { return itemStatus; }
 
-    // setters
-    protected void updatePrice(double newPrice) {
-        this.price = newPrice;
-    }
-    protected void updateStatus(boolean newItemStatus) {
-        this.itemStatus = newItemStatus;
+    // custom string output for debugging
+    public String toString() {
+        return name + " " + df.format(price) + " " + description + " " + category.getCategory() + " " + isNew;
     }
 
-    // print menu item
-    public void printMenuItem() {
+    // check if menu item is new or not?
 
+    // print out a single menu item
+    protected void printFormatted() {
+        String latest = "(NEW!)";
+        if (isNew == true) {
+            System.out.println(df.format(price) + " - " + name + " - " + description + " " + latest);
+        } else {
+            System.out.println(df.format(price) + " - " + name + " - " + description);
+        }
     }
 
-    // equals function
+    // are two menu items equal?
     public boolean equals() {
-        // insert object equality code here
+        // TO DO: insert object equality code here
         return true;
-    }
-
-    // new item
-    public boolean isNewItem() {
-        return this.itemStatus;
     }
 }

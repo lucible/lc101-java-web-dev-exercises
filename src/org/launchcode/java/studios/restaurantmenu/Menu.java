@@ -9,22 +9,16 @@ public class Menu {
     private ArrayList<MenuItem> menuItems;
     private Date lastUpdated;
 
-    // constructor
+    // basic constructor
     public Menu(ArrayList<MenuItem> aMenuItems, Date aLastUpdated) {
         this.menuItems = aMenuItems;
         this.lastUpdated = aLastUpdated;
     }
 
-    // getters
-    public ArrayList<MenuItem> getMenuItems() { return menuItems; }
-    public Date getLastUpdated() { return lastUpdated; }
-
-    // setters
-    public void updateMenuItems(ArrayList<MenuItem> aMenuItems) {
-        this.menuItems = aMenuItems;
-    }
-    public void updateLastUpdated(Date aLastUpdated) {
-        this.lastUpdated = aLastUpdated;
+    // constructor overload for default initialization
+    public Menu() {
+        this.menuItems = new ArrayList<MenuItem>();
+        this.lastUpdated = new Date();
     }
 
     // add menu item
@@ -48,13 +42,17 @@ public class Menu {
         // }
     }
 
-    // last updated
-    public Date lastUpdated() {
-        return this.lastUpdated;
-    }
-
-    // print menu
+    // print out the entire menu
     public void printMenu() {
+        System.out.println("==== MENU (Updated " + lastUpdated + ") ====");
 
+        for (Category c : Category.values()) {
+            System.out.println("\n=== " + c.getCategory() + " ===\n");
+            for (MenuItem item : this.menuItems) {
+                if (item.getCategory() == c) {
+                    item.printFormatted();
+                }
+            }
+        }
     }
 }
