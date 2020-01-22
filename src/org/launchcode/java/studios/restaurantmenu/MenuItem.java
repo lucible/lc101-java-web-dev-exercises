@@ -10,6 +10,10 @@ public class MenuItem {
     private Category category;
     private boolean itemStatus;
 
+    // good shout from studio member: save date when item is added
+    // and check for it in method
+    // how else are you going to know how old the item is?
+
     // constructor
     protected MenuItem(String aName, double aPrice, String aDescription, Category aCategory, boolean aItemStatus) {
         this.name = aName;
@@ -34,4 +38,19 @@ public class MenuItem {
         this.itemStatus = newItemStatus;
     }
 
+    // print menu item
+    public void printMenuItem() {
+
+    }
+
+    // equals function
+    public boolean equals() {
+        // insert object equality code here
+        return true;
+    }
+
+    // new item
+    public boolean isNewItem() {
+        return this.itemStatus;
+    }
 }

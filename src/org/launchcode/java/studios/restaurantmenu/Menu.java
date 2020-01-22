@@ -26,5 +26,35 @@ public class Menu {
     public void updateLastUpdated(Date aLastUpdated) {
         this.lastUpdated = aLastUpdated;
     }
-    
+
+    // add menu item
+    public void addMenuItem(MenuItem item) {
+        this.menuItems.add(item);
+        this.lastUpdated = new Date();
+    }
+
+    // remove menu item
+    public void removeMenuItem(MenuItem item) {
+        int index = this.menuItems.indexOf(item);
+        if (index != -1) {
+            this.menuItems.remove(index);
+        }
+        // int id = 0
+        // for (MenuItem i : this.menuItems) {
+        //     id++;
+        //     if i.equals(item) {
+        //         this.menuItems.remove(i);
+        //     }
+        // }
+    }
+
+    // last updated
+    public Date lastUpdated() {
+        return this.lastUpdated;
+    }
+
+    // print menu
+    public void printMenu() {
+
+    }
 }
