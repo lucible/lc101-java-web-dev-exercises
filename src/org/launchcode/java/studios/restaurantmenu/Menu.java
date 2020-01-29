@@ -9,22 +9,53 @@ public class Menu {
     private ArrayList<MenuItem> menuItems;
     private Date lastUpdated;
 
-    // constructor
+    // basic constructor
     public Menu(ArrayList<MenuItem> aMenuItems, Date aLastUpdated) {
         this.menuItems = aMenuItems;
         this.lastUpdated = aLastUpdated;
     }
 
-    // getters
-    public ArrayList<MenuItem> getMenuItems() { return menuItems; }
-    public Date getLastUpdated() { return lastUpdated; }
+    // constructor overload for default initialization
+    public Menu() {
+        this.menuItems = new ArrayList<MenuItem>();
+        this.lastUpdated = new Date();
+    }
 
-    // setters
-    public void updateMenuItems(ArrayList<MenuItem> aMenuItems) {
-        this.menuItems = aMenuItems;
+    // add menu item
+    public void addMenuItem(MenuItem newItem) {
+        boolean dup = false;
+        for (MenuItem item : this.menuItems) {
+            if (item.equals(newItem)) {
+                dup = true;
+            }
+        }
+        if (dup) {
+            System.out.println("\nERROR: menu item already in menu!\n");
+        } else {
+            this.menuItems.add(newItem);
+            this.lastUpdated = new Date();
+        }
     }
-    public void updateLastUpdated(Date aLastUpdated) {
-        this.lastUpdated = aLastUpdated;
+
+    // remove menu item
+    public void removeMenuItem(MenuItem item) {
+        int index = this.menuItems.indexOf(item);
+        if (index != -1) {
+            this.menuItems.remove(index);
+        }
+        this.lastUpdated = new Date();
     }
-    
+
+    // print out the entire menu
+    public void printMenu() {
+        System.out.println("==== MENU (Updated " + lastUpdated + ") ====");
+        for (Category c : Category.values()) {
+            System.out.println("\n=== " + c.getCategory() + " ===\n");
+            for (MenuItem item : this.menuItems) {
+                if (item.getCategory() == c) {
+                    item.printFormatted();
+                }
+            }
+        }
+    }
 }
