@@ -36,17 +36,17 @@ public class Quiz {
             if (actionChoice.equals("add")) { 
                 // Show the question type sub-menu
                 while (true) {
-                    String questionChoice = getUserSelection("Please choose a question type: ", questionChoices);
+                    String questionChoice = getUserSelection("Your quiz currently has " + quizQuestions.size() + " question(s). Please choose a question type: ", questionChoices);
 
                     if (questionChoice.equals("check")) {
                         // add a new checkbox question
-                        quizQuestions.add(Checkbox.newCheckBox());
+                        quizQuestions.add(Checkbox.newCheckBox(in));
                     } else if (questionChoice.equals("tf")) {
                         // add a new true/false question
-                        System.out.println("add true/false question");
+                        quizQuestions.add(TrueFalse.newTrueFalse(in));
                     } else if (questionChoice.equals("mc")) {
                         // add a new multiple choice question
-                        System.out.println("add multiple choice question");
+                        quizQuestions.add(MultipleChoice.newMultipleChoice(in));
                     } else {
                         // done adding questions
                         break;

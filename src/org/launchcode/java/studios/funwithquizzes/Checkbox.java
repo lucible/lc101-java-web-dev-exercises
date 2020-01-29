@@ -20,39 +20,46 @@ public class Checkbox extends Question {
     }
 
     /**
-     * Console module that accepts user input to create a Checkbox question
+     * Accepts user input to create a Checkbox
+     * @param in : requires a Scanner object
      * @return Checkbox object
      */
-    public static Checkbox newCheckBox() {
-        final Scanner in = new Scanner(System.in);
-
-        boolean possibleDone = false;
-        Integer possibleID = 0;
+    public static Checkbox newCheckBox(Scanner in) {
+        
+        String question;
         HashMap<Integer, String> possibleAnswers = new HashMap<Integer, String>();
-        Map<Integer, String> cloned = new HashMap<Integer, String>();
         List<Integer> correctAnswers = new ArrayList<Integer>();
 
-        System.out.println("\nPlease type your checkbox question: ");
-        String question = in.nextLine();
+        question = collectQuestion("Please type your checkbox question: ", in);
         
-        while (true) {
-            System.out.println("\nPlease type 'done' or a possible answer: ");
-            String next = in.nextLine();
-            if (next.equals("done")) {
-                break;
-            } else {
-                possibleAnswers.put(possibleID, next);
-                possibleID++;
-            }
-        }
+        possibleAnswers = collectPossibleAnswers("Please type 'done' or a possible answer: ", in);
 
-        cloned.putAll(possibleAnswers);
+        correctAnswers = collectCorrectAnswers(question
+                                              , possibleAnswers
+                                              , "Please choose a correct answer, or type 'done' when finished: "
+                                              , in);
 
+        return new Checkbox(question, possibleAnswers, correctAnswers);
+    }
+
+    private static ArrayList<Integer> collectCorrectAnswers(String question, HashMap<Integer, String> possibilities, String message, Scanner in) {
+        
+        // Define loop condition boolean
+        boolean possibleDone = false;
+        
+        // Initialize & define clone of answer possibilities
+        Map<Integer, String> cloned = new HashMap<Integer, String>();
+        cloned.putAll(possibilities);
+
+        // Initialize user input list
+        ArrayList<Integer> correctAnswers = new ArrayList<Integer>();
+
+        // Print message & collect user input
         while (!possibleDone) {
             try {
                 System.out.println("\nYour question was: " + question);
-                System.out.println("Please choose a correct answer, or type 'done' when finished: ");
-                int index = getUserSelection(cloned);
+                System.out.println("\n" + message);
+                int index = getUserSelInt(cloned);
                 correctAnswers.add(index);
                 cloned.remove(index);
             } catch (Exception e) {
@@ -60,44 +67,6 @@ public class Checkbox extends Question {
             }
         }
 
-        return new Checkbox(question, possibleAnswers, correctAnswers);
+        return correctAnswers;
     }
-
-        // Returns the key of the selected item from the choices Dictionary
-        private static Integer getUserSelection(Map<Integer, String> choices) {
-            final Scanner in = new Scanner(System.in);
-
-            Integer choiceIdx;
-            Boolean validChoice = false;
-            Integer[] choiceKeys = new Integer[choices.size()];
-    
-            // Put the choices in an ordered structure so we can
-            // associate an integer with each one
-            Integer i = 0;
-            for (Integer choiceKey : choices.keySet()) {
-                choiceKeys[i] = choiceKey;
-                i++;
-            }
-    
-            // Print available choices
-            for (Integer j = 0; j < choiceKeys.length; j++) {
-                System.out.println("" + j + " - " + choices.get(choiceKeys[j]));
-            }
-    
-            do {
-    
-                choiceIdx = in.nextInt();
-                in.nextLine();
-    
-                // Validate user's input
-                if (choiceIdx < 0 || choiceIdx >= choiceKeys.length) {
-                    System.out.println("Invalid choice. Try again.");
-                } else {
-                    validChoice = true;
-                }
-    
-            } while(!validChoice);
-    
-            return choiceKeys[choiceIdx];
-        }
 }
