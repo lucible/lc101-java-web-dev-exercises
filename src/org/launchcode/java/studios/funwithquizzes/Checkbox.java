@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import org.launchcode.java.studios.funwithquizzes.*;
 
 public class Checkbox extends Question {
     /**
@@ -16,11 +15,15 @@ public class Checkbox extends Question {
      *                        "Python", 4 : "Java" }
      * @param aCorrectAnswer  - eg, [2, 4]
      */
-    public Checkbox(String aQuestion, Map<Integer, String> possibleAnswers, List<Integer> aCorrectAnswers) {
+    private Checkbox(String aQuestion, Map<Integer, String> possibleAnswers, List<Integer> aCorrectAnswers) {
         super(aQuestion, possibleAnswers, aCorrectAnswers);
     }
 
-    public static Question newCheckBox() {
+    /**
+     * Console module that accepts user input to create a Checkbox question
+     * @return Checkbox object
+     */
+    public static Checkbox newCheckBox() {
         final Scanner in = new Scanner(System.in);
 
         boolean possibleDone = false;
@@ -56,11 +59,8 @@ public class Checkbox extends Question {
                 possibleDone = true;
             }
         }
-        
 
-        Question test = new Checkbox(question, possibleAnswers, correctAnswers);
-
-        return test;
+        return new Checkbox(question, possibleAnswers, correctAnswers);
     }
 
         // Returns the key of the selected item from the choices Dictionary

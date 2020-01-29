@@ -10,37 +10,45 @@ public class Quiz {
 
     public static void main(String[] args) {
 
-        // Initialize quiz list
-        List<Question> quizQuestions = new ArrayList<Question>();
-
-        // Length of the quiz
-        int quizLength = 0;
-
-        boolean showMenu = true;
-        boolean showQuestions = true;
-
         // Top-level menu choices
         HashMap<String, String> actionChoices = new HashMap<>();
         actionChoices.put("add", "Add a quiz question");
         actionChoices.put("take", "Take the quiz");
         actionChoices.put("grade", "Grade the quiz");
 
-        // Top-level menu header
-        String menu = "Your quiz currently has " + quizLength + " questions.\n"
-                    + "Please select from the following options:";
+        // Question type choices
+        HashMap<String, String> questionChoices = new HashMap<>();
+        questionChoices.put("check", "Checkbox");
+        questionChoices.put("tf", "True/False");
+        questionChoices.put("mc", "Multiple Choice");
+        questionChoices.put("done", "Done adding questions!");
 
+        // Define quiz question list
+        List<Question> quizQuestions = new ArrayList<Question>();
         
-
         // Print the welcome message
         System.out.println("=== Welcome to Quiz App! ===\n");
 
-        // Allow the user to access the program until they manually quit
-        while (showMenu) {
-            String actionChoice = getUserSelection(menu, actionChoices);
+        // Show the user the top-level menu options until they manually quit
+        while (true) {
+            String actionChoice = getUserSelection("Your quiz currently has " + quizQuestions.size() + " question(s). Please select from the following options:", actionChoices);
 
-            if (actionChoice.equals("add")) {
-                while (showQuestions) {
-                    if (addQuizQuestion(quizQuestions)) {
+            if (actionChoice.equals("add")) { 
+                // Show the question type sub-menu
+                while (true) {
+                    String questionChoice = getUserSelection("Please choose a question type: ", questionChoices);
+
+                    if (questionChoice.equals("check")) {
+                        // add a new checkbox question
+                        quizQuestions.add(Checkbox.newCheckBox());
+                    } else if (questionChoice.equals("tf")) {
+                        // add a new true/false question
+                        System.out.println("add true/false question");
+                    } else if (questionChoice.equals("mc")) {
+                        // add a new multiple choice question
+                        System.out.println("add multiple choice question");
+                    } else {
+                        // done adding questions
                         break;
                     }
                 }
@@ -89,39 +97,5 @@ public class Quiz {
         } while(!validChoice);
 
         return choiceKeys[choiceIdx];
-    }
-
-    private static boolean addQuizQuestion(List<Question> questions) {
-        // Possible question types
-        HashMap<String, String> questionTypes = new HashMap<>();
-        questionTypes.put("check", "Checkbox");
-        questionTypes.put("tf", "True/False");
-        questionTypes.put("mc", "Multiple Choice");
-        questionTypes.put("done", "Done adding questions!");
-
-        String questionChoice = getUserSelection("Please choose a question type: ", questionTypes);
-
-        if (questionChoice.equals("check")) {
-            // type question
-            // type possible answers
-            // type correct answer
-            questions.add(Checkbox.newCheckBox());
-            System.out.println("add checkbox question");
-            return false;
-        } else if (questionChoice.equals("tf")) {
-            // type question
-            // type possible answers
-            // type correct answer
-            System.out.println("add true/false question");
-            return false;
-        } else if (questionChoice.equals("mc")) {
-            // type question
-            // type possible answers
-            // type correct answer
-            System.out.println("add multiple choice question");
-            return false;
-        } else {
-            return true;
-        }
     }
 }
