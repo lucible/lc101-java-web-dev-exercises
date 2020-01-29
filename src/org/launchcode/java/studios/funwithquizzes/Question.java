@@ -7,12 +7,12 @@ import java.util.Map;
 public abstract class Question {
 
     protected String question;
-    protected HashMap<Integer, String> possibleAnswers;
+    protected Map<Integer, String> possibleAnswers;
     protected List<Integer> correctAnswers;
 
-    public Question (String aQuestion, HashMap<Integer, String> aPossibleAnswers, List<Integer> aCorrectAnswers) {
+    public Question (String aQuestion, Map<Integer, String> possibleAnswers2, List<Integer> aCorrectAnswers) {
         question = aQuestion;
-        possibleAnswers = aPossibleAnswers;
+        possibleAnswers = possibleAnswers2;
         correctAnswers = aCorrectAnswers;
     }
     
