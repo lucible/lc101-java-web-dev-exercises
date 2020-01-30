@@ -69,4 +69,46 @@ public class Checkbox extends Question {
 
         return correctAnswers;
     }
+
+    // @Override
+    // public boolean checkSubmittedAnswer(List<Integer> submitted) {
+    //     List<Boolean> grade = new ArrayList<Boolean>();
+    //     int index = 0;
+    //     for (Integer answer : submitted) {
+    //         if (answer.equals(this.correctAnswers.get(index))) {
+    //             grade.add(true);
+    //         } else {
+    //             grade.add(false);
+    //         }
+    //     }
+    //     return grade;
+    // }
+
+    protected ArrayList<Integer> runQuestion() {
+
+        // Define loop condition boolean
+        boolean possibleDone = false;
+        
+        // Initialize & define clone of answer possibilities
+        Map<Integer, String> cloned = new HashMap<Integer, String>();
+        cloned.putAll(this.possibleAnswers);
+
+        // Initialize user input list
+        ArrayList<Integer> userAnswers = new ArrayList<Integer>();
+
+        // Print message & collect user input
+        while (!possibleDone) {
+            try {
+                System.out.println("\nThe question was: " + this.question);
+                System.out.println("\nPlease type 'done' or choose an answer:");
+                int index = Question.getUserSelInt(cloned);
+                userAnswers.add(index);
+                cloned.remove(index);
+            } catch (Exception e) {
+                possibleDone = true;
+            }
+        }
+
+        return userAnswers;
+    }
 }

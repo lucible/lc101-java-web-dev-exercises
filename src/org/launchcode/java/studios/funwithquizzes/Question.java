@@ -18,8 +18,12 @@ public abstract class Question {
         correctAnswers = aCorrectAnswers;
     }
     
+    public Map<Integer, String> getPossibleAnswers() {
+        return this.possibleAnswers;
+    }
+
     public void printQuestion() {
-        System.out.println(this.question + "\n");
+        System.out.println("\n" + this.question);
     }
 
     public void printPossibleAnswers() {
@@ -28,11 +32,12 @@ public abstract class Question {
         }
     }
 
-    public boolean checkSubmittedAnswer(List<Integer> submitted) {
+    public void checkSubmittedAnswer(List<Integer> submitted) {
+        System.out.println("\nThe question was: " + this.question);
         if (submitted.equals(this.correctAnswers)) {
-            return true;
+            System.out.println("Your answer was correct!");
         } else {
-            return false;
+            System.out.println("Your answer was incorrect!");
         }
     }
 
@@ -63,6 +68,19 @@ public abstract class Question {
         }
 
         return possibleAnswers;
+    }
+
+    protected ArrayList<Integer> runQuestion() {
+        // Initialize user input list
+        ArrayList<Integer> userAnswers = new ArrayList<Integer>();
+
+        // Print message & collect user input
+        System.out.println("\n" + this.question);
+        System.out.println("Please choose an answer:");
+        int index = Question.getUserSelInt(this.possibleAnswers);
+        userAnswers.add(index);
+
+        return userAnswers;
     }
 
     // Returns the key of the selected item from the choices Dictionary

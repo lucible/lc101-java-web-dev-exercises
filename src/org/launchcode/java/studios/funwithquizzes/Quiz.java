@@ -25,6 +25,12 @@ public class Quiz {
 
         // Define quiz question list
         List<Question> quizQuestions = new ArrayList<Question>();
+
+        // Define user answer list
+        ArrayList<List<Integer>> userAnswers = new ArrayList<List<Integer>>();
+
+        // Define graded quiz list
+        List<Boolean> quizGraded = new ArrayList<Boolean>();
         
         // Print the welcome message
         System.out.println("=== Welcome to Quiz App! ===\n");
@@ -53,9 +59,19 @@ public class Quiz {
                     }
                 }
             } else if (actionChoice.equals("take")) {
-                // implement taking the quiz
+                userAnswers.clear();
+                for (Question q : quizQuestions) {
+                    ArrayList<Integer> answer = q.runQuestion();
+                    userAnswers.add(answer);
+                }
             } else {
-                // implement grading the quiz
+                quizGraded.clear();
+                int index = 0;
+                for (Question q : quizQuestions) {
+                    // quizGraded.add(q.checkSubmittedAnswer(userAnswers.get(index)));
+                    q.checkSubmittedAnswer(userAnswers.get(index));
+                }
+                System.out.println(quizGraded);
             }
         }
     }
